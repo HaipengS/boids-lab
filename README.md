@@ -18,6 +18,3 @@ rules give rise to complex emergent group behavior.
 ## Project Motivation
 This project was built to study emergence in agent-based systems and to
 provide an intuitive, visual way to experiment with flocking dynamics.
-
-## References
-- Craig Reynolds, *Flocks, Herds, and Schools: A Distributed Behavioral Model*
