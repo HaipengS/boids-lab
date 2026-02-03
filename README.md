@@ -21,6 +21,3 @@ provide an intuitive, visual way to experiment with flocking dynamics.
 
 ## References
 - Craig Reynolds, *Flocks, Herds, and Schools: A Distributed Behavioral Model*
-- Educational inspirations:
-  - https://eater.net/boids
-  - http://www.kfish.org/boids/pseudocode.html
