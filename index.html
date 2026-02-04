@@ -8,59 +8,82 @@
   </head>
   <body>
     <header class="topbar">
-      <div class="brand">Boids Lab</div>
+        <div class="brand">Boids Lab</div>
 
-      <div class="controls">
-        <label>
-            Boids
-            <input id="boidsCount" type="range" min="10" max="500" value="180" />
-            <span id="boidsCountVal">180</span>
+        <div class="controls">
+            <label>
+                Boids
+                <input id="boidsCount" type="range" min="10" max="500" value="180" />
+                <span id="boidsCountVal">180</span>
+            </label>
+
+            <label>
+                Vision
+                <input id="visionRadius" type="range" min="10" max="140" value="60" />
+                <span id="visionRadiusVal">60</span>
+            </label>
+
+            <label>
+                Avoid
+                <input id="avoidRadius" type="range" min="4" max="40" value="18" />
+                <span id="avoidRadiusVal">18</span>
+            </label>
+
+            <label>
+                Max Speed
+                <input id="maxSpeed" type="range" min="0.5" max="10" step="0.1" value="3.2" />
+                <span id="maxSpeedVal">3.2</span>
+            </label>
+
+            <label>
+                Max Force
+                <input id="maxForce" type="range" min="0.01" max="0.5" step="0.01" value="0.08" />
+                <span id="maxForceVal">0.08</span>
+            </label>
+
+            <label>
+                wSep
+                <input id="wSep" type="range" min="0" max="3" step="0.05" value="1.4" />
+                <span id="wSepVal">1.4</span>
+            </label>
+
+            <label>
+                wAli
+                <input id="wAli" type="range" min="0" max="3" step="0.05" value="1.0" />
+                <span id="wAliVal">1.0</span>
+            </label>
+
+            <label>
+                wCoh
+                <input id="wCoh" type="range" min="0" max="3" step="0.05" value="1.0" />
+                <span id="wCohVal">1.0</span>
+            </label>
+
+            <button id="toggle">Pause</button>
+            <button id="reset">Reset</button>
+
+        <label class="check">
+            <input id="predEnabled" type="checkbox" checked />
+            Predator
         </label>
 
         <label>
-            Vision
-            <input id="visionRadius" type="range" min="10" max="140" value="60" />
-            <span id="visionRadiusVal">60</span>
+            Fear Radius
+            <input id="fearRadius" type="range" min="20" max="220" value="120" />
+            <span id="fearRadiusVal">120</span>
         </label>
 
         <label>
-            Avoid
-            <input id="avoidRadius" type="range" min="4" max="40" value="18" />
-            <span id="avoidRadiusVal">18</span>
+            Fear Weight
+            <input id="fearWeight" type="range" min="0" max="5" step="0.1" value="2.2" />
+            <span id="fearWeightVal">2.2</span>
         </label>
+        </div>
 
-        <label>
-            Max Speed
-            <input id="maxSpeed" type="range" min="0.5" max="10" step="0.1" value="3.2" />
-            <span id="maxSpeedVal">3.2</span>
-        </label>
-
-        <label>
-            Max Force
-            <input id="maxForce" type="range" min="0.01" max="0.5" step="0.01" value="0.08" />
-            <span id="maxForceVal">0.08</span>
-        </label>
-
-        <label>
-            wSep
-            <input id="wSep" type="range" min="0" max="3" step="0.05" value="1.4" />
-            <span id="wSepVal">1.4</span>
-        </label>
-
-        <label>
-            wAli
-            <input id="wAli" type="range" min="0" max="3" step="0.05" value="1.0" />
-            <span id="wAliVal">1.0</span>
-        </label>
-
-        <label>
-            wCoh
-            <input id="wCoh" type="range" min="0" max="3" step="0.05" value="1.0" />
-            <span id="wCohVal">1.0</span>
-        </label>
-
-        <button id="toggle">Pause</button>
-        <button id="reset">Reset</button>
+        <div class="metrics">
+            <span>FPS: <b id="fps">--</b></span>
+            <span>Polarization: <b id="pol">--</b></span>
+            <span class="hint">Move mouse to control predator</span>
         </div>
     </header>
 
