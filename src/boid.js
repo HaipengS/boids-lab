@@ -1,40 +1,52 @@
+import { v, add, sub, mul, mag, norm, limit } from "./vec2.js";
+
 export class Boid {
   constructor(x, y, vx, vy) {
-    this.x = x;
-    this.y = y;
-    this.vx = vx;
-    this.vy = vy;
+    this.pos = v(x, y);
+    this.vel = v(vx, vy);
+    this.acc = v(0, 0);
   }
 
-  // Speed limiting to maxSpeed
-  limitSpeed(maxSpeed) {
-    const s2 = this.vx * this.vx + this.vy * this.vy;
-    const ms2 = maxSpeed * maxSpeed;
-    if (s2 > ms2) {
-      const s = Math.sqrt(s2);
-      const k = maxSpeed / s;
-      this.vx *= k;
-      this.vy *= k;
-    }
+  applyForce(f) {
+    this.acc = add(this.acc, f);
   }
 
   step(dt, width, height, maxSpeed) {
-    this.limitSpeed(maxSpeed);
+    // integrate
+    this.vel = add(this.vel, this.acc);
+    this.vel = limit(this.vel, maxSpeed);
+    this.pos = add(this.pos, mul(this.vel, dt));
 
-    this.x += this.vx * dt;
-    this.y += this.vy * dt;
+    // reset acceleration each frame
+    this.acc = v(0, 0);
 
-    // wrap-around 
-    if (this.x < 0) this.x += width;
-    if (this.x >= width) this.x -= width;
-    if (this.y < 0) this.y += height;
-    if (this.y >= height) this.y -= height;
+    // wrap-around
+    if (this.pos.x < 0) this.pos.x += width;
+    if (this.pos.x >= width) this.pos.x -= width;
+    if (this.pos.y < 0) this.pos.y += height;
+    if (this.pos.y >= height) this.pos.y -= height;
   }
 
   draw(ctx) {
-    // Draw boid as a circle
+    // draw a small triangle pointing along velocity
+    const speed = mag(this.vel);
+    const dir = speed === 0 ? v(1, 0) : norm(this.vel);
+
+    // size scales slightly with speed (kept subtle)
+    const size = 6;
+
+    // triangle points in local space
+    // p0 = forward, p1/p2 = back corners
+    const p0 = mul(dir, size);
+    const left = { x: -dir.y, y: dir.x };
+    const p1 = add(mul(dir, -size * 0.7), mul(left, size * 0.5));
+    const p2 = add(mul(dir, -size * 0.7), mul(left, -size * 0.5));
+
     ctx.beginPath();
-    ctx.arc(this.x, this.y, 2.2, 0, Math.PI * 2);
+    ctx.moveTo(this.pos.x + p0.x, this.pos.y + p0.y);
+    ctx.lineTo(this.pos.x + p1.x, this.pos.y + p1.y);
+    ctx.lineTo(this.pos.x + p2.x, this.pos.y + p2.y);
+    ctx.closePath();
     ctx.fill();
   }
 }
